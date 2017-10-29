@@ -1,31 +1,35 @@
-#include<iostream>
-#include<cstdio>
-#include<cstdlib>
-
+#include <algorithm>
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <string>
+#include <cstdio>
+#include <cmath>
+#include <queue>
+#include <map>
 using namespace std;
-
-long long m,n;
-
-long long poww(long long x,long long y){
-    long long ans=1;
-    long long base=x;
-    while(y>0){
-        if(y%2==1){
-            ans*=base;
-            ans%=100003;
+const int k=100003;
+long long n,m,ans=1,sum;
+long long fast(long long z,long long t){
+    sum=z;
+    ans=1;
+    while(t>0)
+    {
+        if(t%2==1)
+        {
+            ans*=sum;
+            ans%=k;
         }
-        base*=base;
-        base%=100003;
-        y/=2;
+        t/=2;
+        sum*=sum;
+        sum%=k;
     }
     return ans;
 }
-
-int main(){
+int main()
+{
     cin>>m>>n;
-    long long a=poww(m,n)%100003,b=(poww(m-1,n-1)*m)%100003;
-    long long ans=(a-b)%100003;
-    cout<<(ans+100003)%100003;
-    
+    //cout<<fast(m,n)<<endl;
+    printf("%d\n",((fast(m,n)-m*fast(m-1,n-1))%k+k)%k);
     return 0;
 }
